@@ -69,9 +69,9 @@ void loop() {
   {
     int b = which_one(inputstr[i]);//确定这一项是那个字母
     if(b == 26)
-      morse.c_space();//空格停顿
+      morse.w_space();//空格大停顿
     else if(b == 27)
-      morse.w_space();//换行停顿
+      morse.w_space();//换行大停顿
     else
     {
       outputstr = morse1[b%SIZE].code;
@@ -82,6 +82,7 @@ void loop() {
        else if(outputstr[j] == '-')
           morse.dash();
       }
+        morse.c_space();//每个单词后小停顿
     }//'a-z'字母morse码闪烁
   }
 
