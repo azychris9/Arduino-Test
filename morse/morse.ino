@@ -63,27 +63,30 @@ Morse morse(13);//13角码
 
 void loop() {
   // put your main code here, to run repeatedly:
-  inputstr = Serial.readString();
-  int i,j,b;
-  for(i = 0;i < inputstr.length();i++)
-  {
-    int b = which_one(inputstr[i]);//确定这一项是那个字母
-    if(b == 26)
-      morse.w_space();//空格大停顿
-    else if(b == 27)
-      morse.w_space();//换行大停顿
-    else
+    if(Serial.available() > 0)
     {
-      outputstr = morse1[b%SIZE].code;
-      for(int j = 0;j < outputstr.length();j++)
+      inputstr = Serial.readString();
+      int i,j,b;
+      for(i = 0;i < inputstr.length();i++)
       {
-       if(outputstr[j] == '.')
-          morse.dot();
-       else if(outputstr[j] == '-')
-          morse.dash();
+        int b = which_one(inputstr[i]);//确定这一项是那个字母
+        if(b == 26)
+          morse.w_space();//空格大停顿
+        else if(b == 27)
+          morse.w_space();//换行大停顿
+        else
+        {
+          outputstr = morse1[b%SIZE].code;
+          for(int j = 0;j < outputstr.length();j++)
+          {
+           if(outputstr[j] == '.')
+              morse.dot();
+           else if(outputstr[j] == '-')
+              morse.dash();
+          }
+            morse.c_space();//每个单词后小停顿
+        }//'a-z'字母morse码闪烁
       }
-        morse.c_space();//每个单词后小停顿
-    }//'a-z'字母morse码闪烁
-  }
+    }
 
 }
